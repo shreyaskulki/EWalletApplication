@@ -30,6 +30,7 @@ public class UserInfoController {
     @PostMapping(value = "/user",produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createAUser(@Valid @RequestBody CreateUserRequestDto createUserRequestDto){
         UserInfo newUser = userInfoService.createANewUser(createUserRequestDto);
+        userInfoService.sendMessage(newUser);
         return new ResponseEntity<>(objectMapper.writeValueAsString(newUser), HttpStatus.CREATED);
     }
 }
