@@ -1,6 +1,7 @@
 package com.major.ewallet.user.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.major.ewallet.user.entity.UserInfo;
 import com.major.ewallet.user.repository.UserInfoRepository;
 import com.major.ewallet.user.request.CreateUserRequestDto;
@@ -49,7 +50,8 @@ public class UserInfoService {
 
     @SneakyThrows
     public void sendMessage(UserInfo userInfo){
-        log.info("*** INSIDE SEND MESSAGE");
+        log.info("*** SENDING MESSAGE TO USER_CREATED ***");
+        objectMapper.registerModule(new JavaTimeModule());
         String message = objectMapper.writeValueAsString(userInfo);
         addCallBack(message,kafkaTemplate.send(USER_CREATED,message));
     }
@@ -67,5 +69,14 @@ public class UserInfoService {
                 +" WITH OFFSET "+result.getRecordMetadata().offset());
             }
         });
+    }
+
+    public UserInfo fetchUserById(Long id) {
+        Optional<UserInfo> user = userInfoRepository.findById(id);
+        if(user.isEmpty()){
+            throw  new RuntimeException();
+        }
+
+        return user.get();
     }
 }
