@@ -12,5 +12,9 @@ This is a EWallet Application using a micro-services architecture where there ar
 3. TODO Update User API
 4. TODO Transactions between Users API
 
+Wallet Service - https://github.com/shreyaskulki/WalletService
+Transaction Service - https://github.com/shreyaskulki/TransactionService
+Notification Service - https://github.com/shreyaskulki/NotificationService
+
 A thanks to Pranav Miglani (https://www.linkedin.com/in/pranavmiglaniii/) who mentored to help create this application. 
 */
